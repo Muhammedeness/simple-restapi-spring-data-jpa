@@ -3,6 +3,8 @@ package com.enesselvi.entites;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,13 +42,14 @@ public class Student {
 	@Column(name = "birt_of_date" , nullable = true)
 	private String birthOfDate;
 	
-	@Column(name="number" , nullable = false)
+	@Column(name="number" , nullable = false , unique = true)
 	private Integer stuNumber;
 	
 	
-	/*
+	
 	@OneToMany(mappedBy = "student" , cascade = CascadeType.ALL , orphanRemoval = true)
-	private List<grades> grades = new ArrayList<>();*/
+	@JsonIgnore
+	private List<grades> grades = new ArrayList<>();
 	
 
 	

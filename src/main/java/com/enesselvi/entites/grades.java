@@ -1,4 +1,4 @@
-/*package com.enesselvi.entites;
+package com.enesselvi.entites;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+
 
 @Entity
 @Table(name = "Grades")
@@ -39,9 +41,8 @@ public class grades {
 	private Double makeupGrade;
 	
 	@ManyToOne
-	@JoinColumn(name = "id" , nullable = false)
+	@JoinColumn(name = "student_id" , nullable = false)
 	private Student student;
 	
 	
-	
-}*/
+}

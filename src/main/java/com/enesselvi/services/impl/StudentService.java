@@ -12,9 +12,6 @@ import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
 
 
-
-
-
 @Service
 public class StudentService implements IStudentService {
 	
@@ -25,8 +22,14 @@ public class StudentService implements IStudentService {
 
 	@Override
 	public Student saveStudent(Student student){
-				
-		return studentRepository.save(student);
+		
+        //aynı numaralı öğrenci kontrol ediyor varsa eklemiyor
+		Example<Student> example = Example.of(student);
+		Optional<Student> optional = studentRepository.findOne(example);
+		if (!optional.isPresent()) {
+			return studentRepository.save(student);
+		}
+		return null;
 	}
 	
 	@Override
