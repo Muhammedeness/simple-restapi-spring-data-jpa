@@ -39,7 +39,7 @@ public class GradeCalculatorService implements IGradeCalculaterService {
                     makeup,
                     avg,
                     letterGrade
-            ));
+            ));    
         }
         return responseList;
     }
