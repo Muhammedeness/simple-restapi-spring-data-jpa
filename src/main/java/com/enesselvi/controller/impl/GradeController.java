@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enesselvi.controller.IGradeController;
+import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.grades;
 import com.enesselvi.services.IGradeCalculaterService;
 import com.enesselvi.services.impl.GradeService;
@@ -48,7 +49,7 @@ public class GradeController implements IGradeController{
 
 	@GetMapping(path = "get-avg/{id}")
 	@Override
-	public String getGradesOfStudentASList(@PathVariable(name = "id")Integer id) {
+	public List<GradeResponseDTO> getGradesOfStudentASList(@PathVariable(name = "id")Integer id) {
 		
 		return gradeService.getGradesOfStudentASList(id);
 	}

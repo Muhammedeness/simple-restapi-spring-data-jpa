@@ -2,6 +2,7 @@ package com.enesselvi.controller;
 
 import java.util.List;
 
+import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.grades;
 
 public interface IGradeController {
@@ -13,7 +14,7 @@ public interface IGradeController {
 	
 	public List<grades> listAllGrades();
 	
-	public String getGradesOfStudentASList(Integer id) ;
+	public List<GradeResponseDTO> getGradesOfStudentASList(Integer id) ;
 	
 	
 }

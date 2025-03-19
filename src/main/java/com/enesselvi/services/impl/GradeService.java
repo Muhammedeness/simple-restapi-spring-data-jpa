@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.grades;
 import com.enesselvi.repository.GradesRepository;
@@ -64,14 +65,10 @@ public class GradeService  implements IGradeService{
 	}
 
 	@Override
-	public String getGradesOfStudentASList(Integer id) {
+	public List<GradeResponseDTO> getGradesOfStudentASList(Integer id) {
 		
 		List<grades> studentGradesList = gradesRepository.findByStudentId(id);
 		
-		if (studentGradesList.isEmpty()) {
-			
-			return "0.0";
-		}
 		return gradeCalculatorService.calculateStudentAverageGrade(studentGradesList);
 	}
 	

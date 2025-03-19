@@ -1,51 +1,48 @@
 package com.enesselvi.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.grades;
 import com.enesselvi.repository.GradesRepository;
 import com.enesselvi.services.IGradeCalculaterService;
 
 @Service
-public class GradeCalculatorService  implements IGradeCalculaterService{
+public class GradeCalculatorService implements IGradeCalculaterService {
 
-	
-	/*@Autowired
-	GradesRepository gradesRepository;*/
-	
-
-	@Override
-	public String calculateStudentAverageGrade(List<grades> gradesList) {
-		
-		if (gradesList.isEmpty()) {
-			return "0.0";
-		}
-		
-        double total = 0.0;
-        int count = 0;
+    @Override
+    public List<GradeResponseDTO> calculateStudentAverageGrade(List<grades> gradesList) {
+        List<GradeResponseDTO> responseList = new ArrayList<>();
 
         for (grades grade : gradesList) {
             double vize = (grade.getMidTermGrade() != null) ? grade.getMidTermGrade() : 0.0;
             double fin = (grade.getFinalGrade() != null) ? grade.getFinalGrade() : 0.0;
             double makeup = (grade.getMakeupGrade() != null) ? grade.getMakeupGrade() : 0.0;
 
-            // Eğer bütünleme yoksa vize %40 + final %60
+            double avg;
             if (makeup == 0.0) {
-                total += (vize * 0.4) + (fin * 0.6);
+                avg = (vize * 0.4) + (fin * 0.6);
             } else {
-                // Eğer bütünleme varsa, final yerine bütünleme kullan
-                total += (vize * 0.4) + (makeup * 0.6);
+                avg = (vize * 0.4) + (makeup * 0.6);
             }
-            count++;
-        }
-        
-        
-		return calculateGradeCode(total);
-	}
 
+            String letterGrade = calculateGradeCode(avg);
+
+            responseList.add(new GradeResponseDTO(
+                    grade.getId(),
+                    vize,
+                    fin,
+                    makeup,
+                    avg,
+                    letterGrade
+            ));
+        }
+        return responseList;
+    }
 	@Override
 	public String calculateGradeCode(Double avg) {
 		
