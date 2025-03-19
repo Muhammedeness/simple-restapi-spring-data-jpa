@@ -3,12 +3,12 @@ package com.enesselvi.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.grades;
-import com.enesselvi.repository.GradesRepository;
+//import com.enesselvi.repository.GradesRepository;
 import com.enesselvi.services.IGradeCalculaterService;
 
 @Service

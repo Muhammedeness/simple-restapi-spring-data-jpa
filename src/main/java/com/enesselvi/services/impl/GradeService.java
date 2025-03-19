@@ -1,6 +1,6 @@
 package com.enesselvi.services.impl;
 
-import java.lang.foreign.ValueLayout.OfBoolean;
+//import java.lang.foreign.ValueLayout.OfBoolean;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,5 +71,4 @@ public class GradeService  implements IGradeService{
 		
 		return gradeCalculatorService.calculateStudentAverageGrade(studentGradesList);
 	}
-	
 }
