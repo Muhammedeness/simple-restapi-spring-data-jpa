@@ -14,10 +14,6 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface StudentRepository  extends JpaRepository<Student, Integer>{
 	
-	/*
-	@Modifying
-	@Transactional
-	@Query(value = "UPDATE student SET number =: userNumber WHERE id =: userId" , nativeQuery = true)
-    void UpdateUserNumber(@Param("userNumber") Integer number ,   @Param("userId") Integer id);*/
+
 	
 }
