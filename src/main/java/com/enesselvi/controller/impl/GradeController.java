@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.enesselvi.controller.IGradeController;
 import com.enesselvi.entites.grades;
+import com.enesselvi.services.IGradeCalculaterService;
 import com.enesselvi.services.impl.GradeService;
 
 
 @RestController
 @RequestMapping("/rest/api/grade")
-public class GradeController implements IGradeController {
+public class GradeController implements IGradeController{
 
 	@Autowired
 	GradeService gradeService ;
@@ -28,7 +29,7 @@ public class GradeController implements IGradeController {
 		
 		grades savedGrade = gradeService.saveGrade(id, grade);
 		
-		return savedGrade;
+		return savedGrade;  
 	}
 
 	@GetMapping(path = "list-grade/{id}")
@@ -45,4 +46,12 @@ public class GradeController implements IGradeController {
 		return gradeService.listAllGrades();
 	}
 
+	@GetMapping(path = "get-avg/{id}")
+	@Override
+	public String getGradesOfStudentASList(@PathVariable(name = "id")Integer id) {
+		
+		return gradeService.getGradesOfStudentASList(id);
+	}
+
+	
 }

@@ -12,7 +12,8 @@ public interface IGradeController {
 	public grades getGradesByStudentId(Integer id);
 	
 	public List<grades> listAllGrades();
-
+	
+	public String getGradesOfStudentASList(Integer id) ;
 	
 	
 }

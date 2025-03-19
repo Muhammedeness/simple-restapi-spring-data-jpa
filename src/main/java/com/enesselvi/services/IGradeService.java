@@ -13,6 +13,8 @@ public interface IGradeService {
 	
 	public List<grades> listAllGrades();
 	
+	public String getGradesOfStudentASList(Integer id);
+	
 	
 	
 }
