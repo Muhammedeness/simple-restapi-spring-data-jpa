@@ -2,14 +2,20 @@ package com.enesselvi.services.impl;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.enesselvi.StudentDto.DtoStudent;
+import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
@@ -23,17 +29,27 @@ public class StudentService implements IStudentService {
 	private StudentRepository studentRepository;
 	
 
+	
+	//////////////Öğrenci Kayıt İşlemi/////////////////////
 	@Override
-	public Student saveStudent(Student student){
+	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave){
 		
+		DtoStudent dtoStudent = new DtoStudent();
+		Student student = new Student();
+		BeanUtils.copyProperties(dtoStudentSave, student);
         //aynı numaralı öğrenci kontrol ediyor varsa eklemiyor
 		Example<Student> example = Example.of(student);
 		Optional<Student> optional = studentRepository.findOne(example);
 		if (!optional.isPresent()) {
-			return studentRepository.save(student);
+			studentRepository.save(student);
+			BeanUtils.copyProperties(student, dtoStudent);
+			return ResponseEntity.ok(dtoStudent);
 		}
-		return null;
-	}
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı zaten kayıtlı");
+	}    
+	
+	
+	
 	
 	@Override
 	public ResponseEntity<String> deleteStudent(Integer id){
@@ -47,38 +63,60 @@ public class StudentService implements IStudentService {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kullanıcı bulunamadı.");
 	}
 
+	
+	
 	@Override
-	public List<Student> gettAllStudents() {
+	public List<DtoStudent> getAllStudents() {
+		
+		List<DtoStudent> dtoStudentList=new ArrayList<>(); //Döndürelecek liste
 		
 		List<Student> studentList = studentRepository.findAll();
-		return studentList;
+		
+		for (Student student : studentList) {
+			DtoStudent dtoStudent = new DtoStudent();
+			BeanUtils.copyProperties(student, dtoStudent);
+			dtoStudentList.add(dtoStudent);
+		}
+		return dtoStudentList;
 	}
 
 	@Override
-	public Student getStudentById(Integer id) {
-		
+	public ResponseEntity<?> getStudentById(Integer id) {
+		DtoStudent dtoStudent = new DtoStudent();
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
-			return optional.get();
+			
+			BeanUtils.copyProperties(optional.get(), dtoStudent);
+			return ResponseEntity.ok(dtoStudent);
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
 	}
 
 	@Override
-	public Student updateStudent(Integer id, Student updatedStudent) {
-		
-		Student dbStudent =  getStudentById(id);
-		if (dbStudent!=null ) {
-			dbStudent.setFirstName(updatedStudent.getFirstName());
-			dbStudent.setLastName(updatedStudent.getLastName());
-			dbStudent.setBirthOfDate(updatedStudent.getBirthOfDate());
-			dbStudent.setStuNumber(updatedStudent.getStuNumber());
+	public ResponseEntity<?> updateStudent(Integer id, DtoStudentSave dtoStudentSave) {
+				
+		Optional<Student> optional = studentRepository.findById(id);
+		if (optional.isPresent()) {
 			
-			studentRepository.save(dbStudent); //burada save override edildi
+			DtoStudent dtoStudent = new DtoStudent();
+			Student dbStudent = optional.get();
+			dbStudent.setFirstName(dtoStudentSave.getFirstName());
+			dbStudent.setLastName(dtoStudentSave.getLastName());
+			dbStudent.setBirthOfDate(dtoStudentSave.getBirthOfDate());
+			dbStudent.setStuNumber(dtoStudentSave.getStuNumber());
+			
+			studentRepository.save(dbStudent);
+			
+			BeanUtils.copyProperties(dbStudent, dtoStudent);
+			return ResponseEntity.ok(dtoStudent);
 		}
-		return null;
+	return	ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
+		
 	}
 
+	
+	
+	
 	@Override
 	public Student findStudentByNumber(Integer number) {
 		

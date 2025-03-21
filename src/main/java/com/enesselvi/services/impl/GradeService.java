@@ -33,13 +33,13 @@ public class GradeService  implements IGradeService{
 	@Override
 	public grades saveGrade(Integer id  , grades grade) {
 
-		Student student = studentService.getStudentById(id);
+	/*	Student student = studentService.getStudentById(id);
 		
 		if (student!= null) {
 			grade.setStudent(student);  
 			
 			return gradesRepository.save(grade);
-		}
+		}*/
 	  return null;
 		
 	}
