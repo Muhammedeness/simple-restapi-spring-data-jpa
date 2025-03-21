@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
@@ -33,9 +36,15 @@ public class StudentService implements IStudentService {
 	}
 	
 	@Override
-	public void deleteStudent(Integer id){
+	public ResponseEntity<String> deleteStudent(Integer id){
+	
+		Optional<Student> optional = studentRepository.findById(id);
+		if (optional.isPresent()) {
+			studentRepository.deleteById(id);    
+			return ResponseEntity.status(HttpStatus.OK).body("Kullanıcı başarıyla silindi");
+		}
 		
-	 studentRepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kullanıcı bulunamadı.");
 	}
 
 	@Override

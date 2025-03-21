@@ -3,6 +3,7 @@ package com.enesselvi.controller.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +38,8 @@ public class StudentControllerImpl implements IStudentController {
 	
 	@DeleteMapping("/delete/{id}")
 	@Override
-	public void deleteStudent(@PathVariable(name = "id")Integer id) {
-		studentService.deleteStudent(id);
+	public ResponseEntity<String> deleteStudent(@PathVariable(name = "id")Integer id) {
+		return studentService.deleteStudent(id);
 		
 	}
 

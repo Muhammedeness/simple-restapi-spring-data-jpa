@@ -3,6 +3,8 @@ package com.enesselvi.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.enesselvi.entites.Student;
 
 public interface IStudentController {
@@ -12,7 +14,7 @@ public interface IStudentController {
 	
 	public List<Student> getAllStudents();
 	
-	public void deleteStudent(Integer id);
+	public ResponseEntity<String> deleteStudent(Integer id);
 	
 	public Student getStudentById(Integer id);
 	

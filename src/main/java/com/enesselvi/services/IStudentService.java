@@ -1,6 +1,9 @@
 package com.enesselvi.services;
 
+import java.net.ResponseCache;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 
 import com.enesselvi.entites.Student;
 
@@ -12,7 +15,7 @@ public interface IStudentService {
 	public List<Student> gettAllStudents();
 	
 	
-	public void deleteStudent(Integer id);
+	public ResponseEntity<String> deleteStudent(Integer id);
 	
 	public Student getStudentById(Integer id);
 	
