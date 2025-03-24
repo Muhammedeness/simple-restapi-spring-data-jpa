@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.GradeDto.DtoGradeList;
-import com.enesselvi.GradeDto.GradeResponseDTO;
+import com.enesselvi.GradeDto.DtoGradeResponse;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.repository.GradesRepository;

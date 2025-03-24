@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GradeResponseDTO {
+public class DtoGradeResponse {
 	private String name;
 	private String surname;
     private Double midTermGrade;

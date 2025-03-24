@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enesselvi.GradeDto.GradeResponseDTO;
+import com.enesselvi.GradeDto.DtoGradeResponse;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.entites.Student;
 //import com.enesselvi.repository.GradesRepository;
@@ -20,7 +20,7 @@ public class GradeCalculatorService implements IGradeCalculaterService {
 
     @Override
     public ResponseEntity<?> calculateStudentAverageGrade(List<Grade> gradesList) {
-        List<GradeResponseDTO> responseList = new ArrayList<>();
+        List<DtoGradeResponse> responseList = new ArrayList<>();
 
         if (gradesList.isEmpty()) {
 			
@@ -46,7 +46,7 @@ public class GradeCalculatorService implements IGradeCalculaterService {
             String name = student.getFirstName();
             String surName = student.getLastName();
 
-            responseList.add(new GradeResponseDTO(
+            responseList.add(new DtoGradeResponse(
             		name,
             		surName,
                     vize,

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enesselvi.GradeDto.DtoGradeAdd;
-import com.enesselvi.GradeDto.GradeResponseDTO;
+import com.enesselvi.GradeDto.DtoGradeResponse;
 import com.enesselvi.controller.IGradeController;
 import com.enesselvi.services.impl.GradeService;
 
