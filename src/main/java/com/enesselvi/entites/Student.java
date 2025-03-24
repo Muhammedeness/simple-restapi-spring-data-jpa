@@ -41,7 +41,7 @@ public class Student {
 	private String lastName;
 	
 	
-	@Column(name = "birt_of_date" , nullable = true)
+	@Column(name = "birth_of_date" , nullable = true)
 	private String birthOfDate;
 	
 	@Column(name="number" , nullable = false , unique = true)

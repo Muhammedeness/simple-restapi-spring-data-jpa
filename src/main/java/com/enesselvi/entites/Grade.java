@@ -29,7 +29,7 @@ public class Grade {
 	private Integer id;
 	
 	
-	@Column(name = "Vize" , nullable = false)
+	@Column(name = "Mid-term" , nullable = false)
 	private Double midTermGrade;
 	
 	
@@ -37,7 +37,7 @@ public class Grade {
 	private Double finalGrade;
 	
 	
-	@Column(name = "Bütünleme" , nullable = true)
+	@Column(name = "Makeup" , nullable = true)
 	private Double makeupGrade;
 	
 	@ManyToOne

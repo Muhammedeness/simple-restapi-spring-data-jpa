@@ -22,7 +22,7 @@ public interface IStudentService {
 	
 	public ResponseEntity<?> getStudentById(Integer id);
 	
-	public ResponseEntity<?> updateStudent(Integer id , DtoStudentUpdate dtoStudentUpdate);
+	public ResponseEntity<?> updateStudent(Integer number , DtoStudentUpdate dtoStudentUpdate);
 	
 	public ResponseEntity<?> findStudentByNumber(Integer number);
 

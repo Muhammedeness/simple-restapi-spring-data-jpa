@@ -91,14 +91,17 @@ public class StudentService implements IStudentService {
 	}
 
 	@Override
-	public ResponseEntity<?> updateStudent(Integer id, DtoStudentUpdate dtoStudentUpdate) {
+	public ResponseEntity<?> updateStudent(Integer number, DtoStudentUpdate dtoStudentUpdate) {
 		
+		Student dbStudent = new Student();
 		DtoStudent dtoStudent = new DtoStudent();
-		Optional<Student> optional = studentRepository.findById(id);
+		dbStudent.setStuNumber(number);
+		Example<Student> example = Example.of(dbStudent);
+		Optional<Student> optional = studentRepository.findOne(example);
 		if (optional.isPresent()) {
 			
 
-			Student dbStudent = optional.get();
+			dbStudent = optional.get();
 
 			System.out.println(dbStudent.getId());
 			dbStudent.setFirstName(dtoStudentUpdate.getFirstName());

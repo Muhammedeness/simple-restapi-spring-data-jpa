@@ -62,11 +62,11 @@ public class StudentController implements IStudentController {
 	}
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{num}")
 	@Override
-	public ResponseEntity<?> updateStudent(@PathVariable(name = "id") Integer id,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
+	public ResponseEntity<?> updateStudent(@PathVariable(name = "num") Integer num,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
 
-    	return studentService.updateStudent(id, dtoStudentUpdate); 
+    	return studentService.updateStudent(num, dtoStudentUpdate); 
 	}
 
 
