@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.enesselvi.GradeDto.DtoGradeAdd;
-import com.enesselvi.entites.GradeResponseDTO;
+import com.enesselvi.GradeDto.GradeResponseDTO;
 
 public interface IGradeController {
 

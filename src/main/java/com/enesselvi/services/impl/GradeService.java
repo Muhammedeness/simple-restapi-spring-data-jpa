@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.GradeDto.DtoGradeList;
-import com.enesselvi.entites.GradeResponseDTO;
+import com.enesselvi.GradeDto.GradeResponseDTO;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.repository.GradesRepository;
@@ -80,7 +80,6 @@ public class GradeService  implements IGradeService{
 			return ResponseEntity.ok(dtoGradesList);
 		}
 		return ResponseEntity.status(HttpStatus.CONFLICT).body("Not Listesi Boş.");
-		
 	}
 
 	@Override

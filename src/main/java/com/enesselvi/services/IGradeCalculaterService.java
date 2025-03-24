@@ -2,7 +2,7 @@ package com.enesselvi.services;
 
 import java.util.List;
 
-import com.enesselvi.entites.GradeResponseDTO;
+import com.enesselvi.GradeDto.GradeResponseDTO;
 import com.enesselvi.entites.Grade;
 
 public interface IGradeCalculaterService {

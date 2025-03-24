@@ -1,12 +1,12 @@
 package com.enesselvi.services.impl;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enesselvi.entites.GradeResponseDTO;
+import com.enesselvi.GradeDto.GradeResponseDTO;
 import com.enesselvi.entites.Grade;
 //import com.enesselvi.repository.GradesRepository;
 import com.enesselvi.services.IGradeCalculaterService;
