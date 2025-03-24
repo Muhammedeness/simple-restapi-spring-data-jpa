@@ -14,6 +14,5 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface StudentRepository  extends JpaRepository<Student, Integer>{
 	
-
 	
 }

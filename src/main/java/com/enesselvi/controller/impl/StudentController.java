@@ -18,6 +18,7 @@ import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.controller.IStudentController;
 import com.enesselvi.entites.Student;
+import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
 
 
@@ -28,7 +29,8 @@ public class StudentController implements IStudentController {
 	@Autowired
 	private IStudentService studentService ;
 	
-	
+	@Autowired
+	StudentRepository studentRepository;
 	
 	@PostMapping(path = "/save")
 	@Override
