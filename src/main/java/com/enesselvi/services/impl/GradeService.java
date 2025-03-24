@@ -41,14 +41,14 @@ public class GradeService  implements IGradeService{
 	@Override
 	public ResponseEntity<?> saveGrade(Integer number  , DtoGradeAdd dtoGradeAdd) {
 
-		Grade addGrade = new Grade();	
-		DtoGrade dtoGrade = new DtoGrade();
-		Student student = new Student();
+		Grade addGrade = new Grade();   //VERİTABANINA EKLENECEK NOTUN TUTULDUĞU DEĞİŞKEN
+		DtoGrade dtoGrade = new DtoGrade();  //NOTUN KULLANICIYA DÖNDÜRÜLECEĞİ DTOSU
+		Student student = new Student();  //İSTENEN NUMARADAKİ KULLANICIYI ATANACAK DEĞİŞKEN
 		student.setStuNumber(number);
 		Example<Student> example = Example.of(student);
-		Optional<Student> optional = studentRepository.findOne(example);
+		Optional<Student> optional = studentRepository.findOne(example);  //VERİLEN ÖĞRENCİYİ ARAYAN KOD. ARKADA WHERE Lİ SQL SORGUSU ÇALIŞIR
 		if (optional.isPresent()) {
-			 student = optional.get();
+			 student = optional.get(); //BULUNAN ÖĞRENCİYİ GETTER İLE ATA
 			 BeanUtils.copyProperties(dtoGradeAdd, addGrade);
 			 
 			 addGrade.setStudent(student);
