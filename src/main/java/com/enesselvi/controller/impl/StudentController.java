@@ -23,7 +23,7 @@ import com.enesselvi.services.IStudentService;
 
 @RestController
 @RequestMapping("/rest/api/student")
-public class StudentControllerImpl implements IStudentController {
+public class StudentController implements IStudentController {
 
 	@Autowired
 	private IStudentService studentService ;
