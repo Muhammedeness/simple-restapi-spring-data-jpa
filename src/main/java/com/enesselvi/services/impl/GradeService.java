@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,13 +39,16 @@ public class GradeService  implements IGradeService{
 	GradeCalculatorService gradeCalculatorService;
 	
 	@Override
-	public ResponseEntity<?> saveGrade(Integer id  , DtoGradeAdd dtoGradeAdd) {
+	public ResponseEntity<?> saveGrade(Integer number  , DtoGradeAdd dtoGradeAdd) {
 
 		Grade addGrade = new Grade();	
 		DtoGrade dtoGrade = new DtoGrade();
-		Optional<Student> optional = studentRepository.findById(id);
+		Student student = new Student();
+		student.setStuNumber(number);
+		Example<Student> example = Example.of(student);
+		Optional<Student> optional = studentRepository.findOne(example);
 		if (optional.isPresent()) {
-			 Student student = optional.get();
+			 student = optional.get();
 			 BeanUtils.copyProperties(dtoGradeAdd, addGrade);
 			 
 			 addGrade.setStudent(student);

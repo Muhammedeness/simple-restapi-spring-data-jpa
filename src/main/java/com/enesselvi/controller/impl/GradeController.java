@@ -24,11 +24,11 @@ public class GradeController implements IGradeController{
 	@Autowired
 	GradeService gradeService ;
 	
-	@PostMapping(path = "/save-grade/{id}")
+	@PostMapping(path = "/save-grade/{num}")
 	@Override
-	public ResponseEntity<?> saveGrade(@PathVariable (name = "id") Integer id,@RequestBody DtoGradeAdd dtoGradeAdd) {
+	public ResponseEntity<?> saveGrade(@PathVariable (name = "num") Integer num,@RequestBody DtoGradeAdd dtoGradeAdd) {
 		
-		ResponseEntity<?> savedGrade = gradeService.saveGrade(id, dtoGradeAdd);
+		ResponseEntity<?> savedGrade = gradeService.saveGrade(num, dtoGradeAdd);
 		
 		return savedGrade;  
 	}

@@ -9,7 +9,7 @@ import com.enesselvi.GradeDto.GradeResponseDTO;
 
 public interface IGradeService {
 
-	public ResponseEntity<?> saveGrade( Integer id , DtoGradeAdd dtoGradeAdd);
+	public ResponseEntity<?> saveGrade( Integer number , DtoGradeAdd dtoGradeAdd);
 	
 	public ResponseEntity<?> listAllGrades();
 	
