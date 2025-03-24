@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.entites.GradeResponseDTO;
-import com.enesselvi.entites.grades;
 
 public interface IGradeService {
 

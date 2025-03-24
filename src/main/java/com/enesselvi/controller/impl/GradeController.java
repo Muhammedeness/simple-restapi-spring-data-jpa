@@ -1,6 +1,5 @@
 package com.enesselvi.controller.impl;
 
-import java.net.http.HttpResponse.ResponseInfo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.controller.IGradeController;
 import com.enesselvi.entites.GradeResponseDTO;
-import com.enesselvi.entites.grades;
-import com.enesselvi.services.IGradeCalculaterService;
 import com.enesselvi.services.impl.GradeService;
 
 

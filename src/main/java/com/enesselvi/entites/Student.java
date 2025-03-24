@@ -51,7 +51,7 @@ public class Student {
 	
 	@OneToMany(mappedBy = "student" , cascade = CascadeType.ALL , orphanRemoval = true)
 	@JsonIgnore
-	private List<grades> grades = new ArrayList<>();
+	private List<Grade> grades = new ArrayList<>();
 	
 
 	

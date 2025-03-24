@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.enesselvi.entites.GradeResponseDTO;
-import com.enesselvi.entites.grades;
+import com.enesselvi.entites.Grade;
 //import com.enesselvi.repository.GradesRepository;
 import com.enesselvi.services.IGradeCalculaterService;
 
@@ -15,10 +15,10 @@ import com.enesselvi.services.IGradeCalculaterService;
 public class GradeCalculatorService implements IGradeCalculaterService {
 
     @Override
-    public List<GradeResponseDTO> calculateStudentAverageGrade(List<grades> gradesList) {
+    public List<GradeResponseDTO> calculateStudentAverageGrade(List<Grade> gradesList) {
         List<GradeResponseDTO> responseList = new ArrayList<>();
 
-        for (grades grade : gradesList) {
+        for (Grade grade : gradesList) {
             double vize = (grade.getMidTermGrade() != null) ? grade.getMidTermGrade() : 0.0;
             double fin = (grade.getFinalGrade() != null) ? grade.getFinalGrade() : 0.0;
             double makeup = (grade.getMakeupGrade() != null) ? grade.getMakeupGrade() : 0.0;
@@ -33,7 +33,6 @@ public class GradeCalculatorService implements IGradeCalculaterService {
             String letterGrade = calculateGradeCode(avg);
 
             responseList.add(new GradeResponseDTO(
-                    grade.getId(),
                     vize,
                     fin,
                     makeup,

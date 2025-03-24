@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.entites.GradeResponseDTO;
-import com.enesselvi.entites.grades;
 
 public interface IGradeController {
 

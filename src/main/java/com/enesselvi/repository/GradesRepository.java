@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.enesselvi.entites.grades;
+import com.enesselvi.entites.Grade;
 
-public interface GradesRepository   extends JpaRepository<grades, Integer>{
+public interface GradesRepository   extends JpaRepository<Grade, Integer>{
 
 	
     // Öğrencinin ID'sine göre tüm notları getir
-    List<grades> findByStudentId(Integer studentId);
+    List<Grade> findByStudentId(Integer studentId);
 }
