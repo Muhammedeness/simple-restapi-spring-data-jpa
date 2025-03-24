@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GradeResponseDTO {
+	private String name;
+	private String surname;
     private Double midTermGrade;
     private Double finalGrade;
     private Double makeupGrade;
