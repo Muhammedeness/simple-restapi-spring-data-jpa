@@ -1,8 +1,10 @@
 package com.enesselvi.controller.impl;
 
+import java.net.http.HttpResponse.ResponseInfo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.controller.IGradeController;
 import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.grades;
@@ -26,24 +29,16 @@ public class GradeController implements IGradeController{
 	
 	@PostMapping(path = "/save-grade/{id}")
 	@Override
-	public grades saveGrade(@PathVariable (name = "id") Integer id,@RequestBody grades grade) {
+	public ResponseEntity<?> saveGrade(@PathVariable (name = "id") Integer id,@RequestBody DtoGradeAdd dtoGradeAdd) {
 		
-		grades savedGrade = gradeService.saveGrade(id, grade);
+		ResponseEntity<?> savedGrade = gradeService.saveGrade(id, dtoGradeAdd);
 		
 		return savedGrade;  
 	}
 	
-
-	@GetMapping(path = "list-grade/{id}")
-	@Override
-	public grades getGradesByStudentId(@PathVariable(name = "id") Integer id) {
-		
-		return  gradeService.getGradesByStudentId(id);
-	}
-
 	@GetMapping(path = "list-allgrades")
 	@Override
-	public List<grades> listAllGrades() {
+	public ResponseEntity<?> listAllGrades() {
 		
 		return gradeService.listAllGrades();
 	}

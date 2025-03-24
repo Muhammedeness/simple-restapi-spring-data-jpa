@@ -1,17 +1,26 @@
 package com.enesselvi.services.impl;
 
+import java.util.ArrayList;
 //import java.lang.foreign.ValueLayout.OfBoolean;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.GradeDto.DtoGrade;
+import com.enesselvi.GradeDto.DtoGradeAdd;
+import com.enesselvi.GradeDto.DtoGradeList;
 import com.enesselvi.entites.GradeResponseDTO;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.grades;
 import com.enesselvi.repository.GradesRepository;
+import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IGradeService;
 
 
@@ -19,6 +28,9 @@ import com.enesselvi.services.IGradeService;
 public class GradeService  implements IGradeService{
 	
 	
+	
+	@Autowired
+	StudentRepository studentRepository;
 	
 	@Autowired
 	GradesRepository gradesRepository ;
@@ -31,37 +43,49 @@ public class GradeService  implements IGradeService{
 	GradeCalculatorService gradeCalculatorService;
 	
 	@Override
-	public grades saveGrade(Integer id  , grades grade) {
+	public ResponseEntity<?> saveGrade(Integer id  , DtoGradeAdd dtoGradeAdd) {
 
-	/*	Student student = studentService.getStudentById(id);
-		
-		if (student!= null) {
-			grade.setStudent(student);  
-			
-			return gradesRepository.save(grade);
-		}*/
-	  return null;
-		
-	}
+		grades addGrade = new grades();	
+		DtoGrade dtoGrade = new DtoGrade();
+		Optional<Student> optional = studentRepository.findById(id);
+		if (optional.isPresent()) {
+			 Student student = optional.get();
+			 BeanUtils.copyProperties(dtoGradeAdd, addGrade);
+			 
+			 addGrade.setStudent(student);
+			 grades savedGrade = gradesRepository.save(addGrade);
+			 BeanUtils.copyProperties(savedGrade, dtoGrade);
 
-	@Override
-	public grades getGradesByStudentId(Integer id) {
-		
-		Optional<grades> optional = gradesRepository.findById(id);
-		
-		 if (optional.isPresent()){
-
-			 return optional.get();
+			return ResponseEntity.ok(dtoGrade);
 		}
-		return null;
+		
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadıı");
 	}
 
+
+
 	@Override
-	public List<grades> listAllGrades() {
+	public ResponseEntity<?> listAllGrades() {
 		
+		Student student = new Student();
+		List<DtoGradeList> dtoGradesList= new ArrayList<>();
 		List<grades> gradesList = gradesRepository.findAll();
+		if (!gradesList.isEmpty()) {
+
+			for (grades grade : gradesList) {
+				DtoGradeList dtoGrade = new DtoGradeList();
+				BeanUtils.copyProperties(grade, dtoGrade);
+				
+				student=grade.getStudent();
+				dtoGrade.setFirstName(student.getFirstName());
+				dtoGrade.setLastName(student.getLastName());
+				
+				dtoGradesList.add(dtoGrade);
+			}
+			return ResponseEntity.ok(dtoGradesList);
+		}
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("Not Listesi Boş.");
 		
-		return gradesList;
 	}
 
 	@Override
