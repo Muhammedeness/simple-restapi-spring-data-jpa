@@ -3,6 +3,9 @@ package com.enesselvi.services.impl;
 import java.util.ArrayList; 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +19,15 @@ import com.enesselvi.services.IGradeCalculaterService;
 public class GradeCalculatorService implements IGradeCalculaterService {
 
     @Override
-    public List<GradeResponseDTO> calculateStudentAverageGrade(List<Grade> gradesList) {
+    public ResponseEntity<?> calculateStudentAverageGrade(List<Grade> gradesList) {
         List<GradeResponseDTO> responseList = new ArrayList<>();
 
+        if (gradesList.isEmpty()) {
+			
+        	return ResponseEntity.status(HttpStatus.CONFLICT).body("Not Bulunamadı");
+		}
+        
+        
         for (Grade grade : gradesList) {
             double vize = (grade.getMidTermGrade() != null) ? grade.getMidTermGrade() : 0.0;
             double fin = (grade.getFinalGrade() != null) ? grade.getFinalGrade() : 0.0;
@@ -47,7 +56,7 @@ public class GradeCalculatorService implements IGradeCalculaterService {
                     letterGrade
             ));    
         }
-        return responseList;
+        return ResponseEntity.ok(responseList);
     }
 	@Override
 	public String calculateGradeCode(Double avg) {

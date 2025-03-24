@@ -87,7 +87,7 @@ public class GradeService  implements IGradeService{
 	}
 
 	@Override
-	public List<GradeResponseDTO> getGradesOfStudentASList(Integer id) {
+	public ResponseEntity<?> getGradesOfStudentASList(Integer id) {
 		
 		List<Grade> studentGradesList = gradesRepository.findByStudentId(id);
 		
