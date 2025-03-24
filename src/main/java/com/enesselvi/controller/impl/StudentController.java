@@ -48,7 +48,7 @@ public class StudentController implements IStudentController {
 
 	@GetMapping("/list")
 	@Override
-	public List<DtoStudent> getAllStudents() {
+	public ResponseEntity<?> getAllStudents() {
 		
 	  return studentService.getAllStudents();
 	}

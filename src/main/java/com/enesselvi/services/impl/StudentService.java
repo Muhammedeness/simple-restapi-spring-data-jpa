@@ -64,18 +64,22 @@ public class StudentService implements IStudentService {
 
 	
 	@Override
-	public List<DtoStudent> getAllStudents() {
+	public ResponseEntity<?> getAllStudents() {
 		
 		List<DtoStudent> dtoStudentList=new ArrayList<>(); //Döndürelecek liste
 		
 		List<Student> studentList = studentRepository.findAll();
+		
+		if (studentList.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Kayıtlı Öğrenci BUlunamadı");
+		}
 		
 		for (Student student : studentList) {
 			DtoStudent dtoStudent = new DtoStudent();
 			BeanUtils.copyProperties(student, dtoStudent);
 			dtoStudentList.add(dtoStudent);
 		}
-		return dtoStudentList;
+		return ResponseEntity.ok(dtoStudentList);
 	}
 
 	

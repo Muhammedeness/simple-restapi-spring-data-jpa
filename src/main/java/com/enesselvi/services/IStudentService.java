@@ -15,7 +15,7 @@ public interface IStudentService {
 	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave); //DtoStudent will returned ony name , lastname and number will returned
 	
 	
-	public List<DtoStudent> getAllStudents();
+	public ResponseEntity<?> getAllStudents();
 	
 	
 	public ResponseEntity<String> deleteStudent(Integer id);
