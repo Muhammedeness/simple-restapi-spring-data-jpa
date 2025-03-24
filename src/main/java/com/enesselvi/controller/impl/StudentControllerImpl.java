@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
+import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.controller.IStudentController;
 import com.enesselvi.entites.Student;
 import com.enesselvi.services.IStudentService;
@@ -63,15 +64,15 @@ public class StudentControllerImpl implements IStudentController {
 
     @PutMapping("/update/{id}")
 	@Override
-	public ResponseEntity<?> updateStudent(@PathVariable(name = "id") Integer id,  @RequestBody  DtoStudentSave dtoStudentSave) {
+	public ResponseEntity<?> updateStudent(@PathVariable(name = "id") Integer id,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
 
-    	return studentService.updateStudent(id, dtoStudentSave); 
+    	return studentService.updateStudent(id, dtoStudentUpdate); 
 	}
 
 
     @GetMapping("/list/with-number/{stuNumber}")
 	@Override
-	public Student findStudentByNumber(@PathVariable(name = "stuNumber")Integer number) {
+	public ResponseEntity<?>  findStudentByNumber(@PathVariable(name = "stuNumber")Integer number) {
     	
 		return studentService.findStudentByNumber(number);
 	}

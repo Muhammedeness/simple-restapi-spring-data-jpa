@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
+import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.entites.Student;
 
 public interface IStudentController {
@@ -20,9 +21,9 @@ public interface IStudentController {
 	
 	public ResponseEntity<?> getStudentById(Integer id);
 	
-	public ResponseEntity<?> updateStudent(Integer id , DtoStudentSave dtoStudentSave);
+	public ResponseEntity<?> updateStudent(Integer id , DtoStudentUpdate dtoStudentUpdate);
 	
-	public Student findStudentByNumber(Integer number);
+	public ResponseEntity<?>  findStudentByNumber(Integer number);
 
 
 	

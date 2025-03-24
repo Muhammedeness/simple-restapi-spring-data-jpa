@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
+import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
@@ -49,8 +50,6 @@ public class StudentService implements IStudentService {
 	}    
 	
 	
-	
-	
 	@Override
 	public ResponseEntity<String> deleteStudent(Integer id){
 	
@@ -63,7 +62,6 @@ public class StudentService implements IStudentService {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kullanıcı bulunamadı.");
 	}
 
-	
 	
 	@Override
 	public List<DtoStudent> getAllStudents() {
@@ -93,21 +91,23 @@ public class StudentService implements IStudentService {
 	}
 
 	@Override
-	public ResponseEntity<?> updateStudent(Integer id, DtoStudentSave dtoStudentSave) {
-				
+	public ResponseEntity<?> updateStudent(Integer id, DtoStudentUpdate dtoStudentUpdate) {
+		
+		DtoStudent dtoStudent = new DtoStudent();
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
 			
-			DtoStudent dtoStudent = new DtoStudent();
+
 			Student dbStudent = optional.get();
-			dbStudent.setFirstName(dtoStudentSave.getFirstName());
-			dbStudent.setLastName(dtoStudentSave.getLastName());
-			dbStudent.setBirthOfDate(dtoStudentSave.getBirthOfDate());
-			dbStudent.setStuNumber(dtoStudentSave.getStuNumber());
+
+			System.out.println(dbStudent.getId());
+			dbStudent.setFirstName(dtoStudentUpdate.getFirstName());
+			dbStudent.setLastName(dtoStudentUpdate.getLastName());
+			dbStudent.setBirthOfDate(dtoStudentUpdate.getBirthOfDate());
 			
-			studentRepository.save(dbStudent);
-			
-			BeanUtils.copyProperties(dbStudent, dtoStudent);
+		    Student updatedStudent = studentRepository.save(dbStudent);
+ 
+			BeanUtils.copyProperties(updatedStudent, dtoStudent);
 			return ResponseEntity.ok(dtoStudent);
 		}
 	return	ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
@@ -115,10 +115,9 @@ public class StudentService implements IStudentService {
 	}
 
 	
-	
-	
 	@Override
-	public Student findStudentByNumber(Integer number) {
+	public ResponseEntity<?> findStudentByNumber(Integer number) {
+		
 		
 		Student findStudent = new Student();
 		findStudent.setStuNumber(number);
@@ -126,8 +125,14 @@ public class StudentService implements IStudentService {
 		Example<Student> example = Example.of(findStudent);
 		Optional<Student> optional = studentRepository.findOne(example);
 		if (optional.isPresent()) {
-			return optional.get();
+			
+			DtoStudent dtoStudent = new DtoStudent();
+			
+			findStudent=optional.get();
+			BeanUtils.copyProperties(findStudent, dtoStudent);
+			
+			return ResponseEntity.ok(dtoStudent);
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
 	}
 }
