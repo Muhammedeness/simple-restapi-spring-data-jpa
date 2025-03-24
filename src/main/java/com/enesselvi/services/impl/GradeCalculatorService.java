@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.enesselvi.GradeDto.GradeResponseDTO;
 import com.enesselvi.entites.Grade;
-import com.enesselvi.entites.Student;
 //import com.enesselvi.repository.GradesRepository;
 import com.enesselvi.services.IGradeCalculaterService;
 
@@ -32,14 +31,8 @@ public class GradeCalculatorService implements IGradeCalculaterService {
             }
 
             String letterGrade = calculateGradeCode(avg);
-            Student student = new Student();
-            student = grade.getStudent();
-            String name = student.getFirstName();
-            String surName = student.getLastName();
 
             responseList.add(new GradeResponseDTO(
-            		name,
-            		surName,
                     vize,
                     fin,
                     makeup,
