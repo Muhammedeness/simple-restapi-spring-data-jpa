@@ -45,7 +45,7 @@ public class StudentService implements IStudentService {
 			studentRepository.save(student);
 			BeanUtils.copyProperties(student, dtoStudent);
 			return ResponseEntity.ok(dtoStudent);
-		}
+		}  
 		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı zaten kayıtlı");
 	}    
 	
@@ -64,22 +64,22 @@ public class StudentService implements IStudentService {
 
 	
 	@Override
-	public ResponseEntity<?> getAllStudents() {
+	public List<DtoStudent> getAllStudents() {
 		
 		List<DtoStudent> dtoStudentList=new ArrayList<>(); //Döndürelecek liste
 		
 		List<Student> studentList = studentRepository.findAll();
 		
-		if (studentList.isEmpty()) {
+		/*if (studentList.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Kayıtlı Öğrenci BUlunamadı");
-		}
+		}*/
 		
 		for (Student student : studentList) {
 			DtoStudent dtoStudent = new DtoStudent();
 			BeanUtils.copyProperties(student, dtoStudent);
 			dtoStudentList.add(dtoStudent);
 		}
-		return ResponseEntity.ok(dtoStudentList);
+		return   dtoStudentList;  //ResponseEntity.ok(dtoStudentList);
 	}
 
 	

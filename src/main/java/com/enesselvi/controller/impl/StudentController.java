@@ -3,6 +3,7 @@ package com.enesselvi.controller.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +51,11 @@ public class StudentController implements IStudentController {
 	@Override
 	public ResponseEntity<?> getAllStudents() {
 		
-	  return studentService.getAllStudents();
+		List<DtoStudent> dtoStudentList = studentService.getAllStudents();
+		if (dtoStudentList.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kayıtlı Öğrenci BUlunamadı");
+		}	
+	  return ResponseEntity.ok(dtoStudentList);
 	}
 
 
