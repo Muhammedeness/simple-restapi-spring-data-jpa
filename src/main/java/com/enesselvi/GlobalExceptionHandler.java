@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.enesselvi.StudentException.CustomNotFoundException;
-import com.enesselvi.StudentException.CustomAlreadyInDatabaseException;
+import com.enesselvi.Exception.CustomAlreadyInDatabaseException;
+import com.enesselvi.Exception.CustomNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

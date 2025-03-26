@@ -1,4 +1,4 @@
-package com.enesselvi.StudentException;
+package com.enesselvi.Exception;
 
 
 

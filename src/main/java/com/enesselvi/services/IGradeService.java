@@ -15,7 +15,7 @@ public interface IGradeService {
 	
 	public List<DtoGradeList> listAllGrades();
 	
-	public ResponseEntity<?> getGradesOfStudentASList(Integer id);
+	public List<DtoGradeResponse> getGradesOfStudentASList(Integer id);
 	
 	
 	

@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.Exception.CustomNotFoundException;
 import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.GradeDto.DtoGradeList;
 import com.enesselvi.GradeDto.DtoGradeResponse;
-import com.enesselvi.StudentException.CustomNotFoundException;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.repository.GradesRepository;
@@ -83,7 +83,7 @@ public class GradeService  implements IGradeService{
 	}
 
 	@Override
-	public ResponseEntity<?> getGradesOfStudentASList(Integer id) {
+	public List<DtoGradeResponse> getGradesOfStudentASList(Integer id) {
 		
 		List<Grade> studentGradesList = gradesRepository.findByStudentId(id);
 		

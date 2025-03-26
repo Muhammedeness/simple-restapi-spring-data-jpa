@@ -10,7 +10,7 @@ import com.enesselvi.entites.Grade;
 public interface IGradeCalculaterService {
 
 	
-	public ResponseEntity<?> calculateStudentAverageGrade(List<Grade> gradesList) ;
+	public List<DtoGradeResponse> calculateStudentAverageGrade(List<Grade> gradesList) ;
 	
 	
 	public String calculateGradeCode(Double avg);

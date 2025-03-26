@@ -44,7 +44,7 @@ public class GradeController implements IGradeController{
 
 	@GetMapping(path = "get-avg/{id}")
 	@Override
-	public ResponseEntity<?> getGradesOfStudentASList(@PathVariable(name = "id")Integer id) {
+	public List<DtoGradeResponse> getGradesOfStudentASList(@PathVariable(name = "id")Integer id) {
 		
 		return gradeService.getGradesOfStudentASList(id);
 	}

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.Exception.CustomNotFoundException;
 import com.enesselvi.GradeDto.DtoGradeResponse;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.entites.Student;
@@ -19,13 +20,11 @@ import com.enesselvi.services.IGradeCalculaterService;
 public class GradeCalculatorService implements IGradeCalculaterService {
 
     @Override
-    public ResponseEntity<?> calculateStudentAverageGrade(List<Grade> gradesList) {
+    public List<DtoGradeResponse> calculateStudentAverageGrade(List<Grade> gradesList) {
         List<DtoGradeResponse> responseList = new ArrayList<>();
 
-        if (gradesList.isEmpty()) {
-			
-        	return ResponseEntity.status(HttpStatus.CONFLICT).body("Not Bulunamadı");
-		}
+        if (gradesList.isEmpty())
+            {throw new CustomNotFoundException("Notlar Bulunamadı");}
         
         
         for (Grade grade : gradesList) {
@@ -56,7 +55,7 @@ public class GradeCalculatorService implements IGradeCalculaterService {
                     letterGrade
             ));    
         }
-        return ResponseEntity.ok(responseList);
+        return responseList;
     }
 	@Override
 	public String calculateGradeCode(Double avg) {
