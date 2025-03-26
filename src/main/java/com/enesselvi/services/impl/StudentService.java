@@ -14,7 +14,7 @@ import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.StudentException.CustomNotFoundException;
-import com.enesselvi.StudentException.CustomUserInDatabaseException;
+import com.enesselvi.StudentException.CustomAlreadyInDatabaseException;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
@@ -42,7 +42,7 @@ public class StudentService implements IStudentService {
 			return dtoStudent;
 		} 
 		
-		throw new CustomUserInDatabaseException("Öğrenci Zaten Kayıtlı");
+		throw new CustomAlreadyInDatabaseException("Öğrenci Zaten Kayıtlı");
 	}    
 	
 	

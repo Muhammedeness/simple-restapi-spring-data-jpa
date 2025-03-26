@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
+import com.enesselvi.GradeDto.DtoGradeList;
 import com.enesselvi.GradeDto.DtoGradeResponse;
 import com.enesselvi.controller.IGradeController;
 import com.enesselvi.services.impl.GradeService;
@@ -26,16 +28,16 @@ public class GradeController implements IGradeController{
 	
 	@PostMapping(path = "/save-grade/{num}")
 	@Override
-	public ResponseEntity<?> saveGrade(@PathVariable (name = "num") Integer num,@RequestBody DtoGradeAdd dtoGradeAdd) {
+	public DtoGrade saveGrade(@PathVariable (name = "num") Integer num,@RequestBody DtoGradeAdd dtoGradeAdd) {
 		
-		ResponseEntity<?> savedGrade = gradeService.saveGrade(num, dtoGradeAdd);
+	    DtoGrade savedGrade = gradeService.saveGrade(num, dtoGradeAdd);
 		
 		return savedGrade;  
 	}
 	
 	@GetMapping(path = "list-allgrades")
 	@Override
-	public ResponseEntity<?> listAllGrades() {
+	public List<DtoGradeList> listAllGrades() {
 		
 		return gradeService.listAllGrades();
 	}

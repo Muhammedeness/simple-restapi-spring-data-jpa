@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.enesselvi.StudentException.CustomNotFoundException;
-import com.enesselvi.StudentException.CustomUserInDatabaseException;
+import com.enesselvi.StudentException.CustomAlreadyInDatabaseException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,10 +22,10 @@ public class GlobalExceptionHandler {
 		return e.getMessage();
 	}
 
-	@ExceptionHandler(CustomUserInDatabaseException.class)
+	@ExceptionHandler(CustomAlreadyInDatabaseException.class)
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public String handleUserInDatabaseException(CustomUserInDatabaseException e) {
+	public String handleUserInDatabaseException(CustomAlreadyInDatabaseException e) {
 		return e.getMessage();
 	}
 	

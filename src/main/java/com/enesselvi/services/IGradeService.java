@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
+import com.enesselvi.GradeDto.DtoGradeList;
 import com.enesselvi.GradeDto.DtoGradeResponse;
 
 public interface IGradeService {
 
-	public ResponseEntity<?> saveGrade( Integer number , DtoGradeAdd dtoGradeAdd);
+	public DtoGrade saveGrade( Integer number , DtoGradeAdd dtoGradeAdd);
 	
-	public ResponseEntity<?> listAllGrades();
+	public List<DtoGradeList> listAllGrades();
 	
 	public ResponseEntity<?> getGradesOfStudentASList(Integer id);
 	

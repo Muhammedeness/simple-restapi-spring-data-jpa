@@ -15,6 +15,7 @@ import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
 import com.enesselvi.GradeDto.DtoGradeList;
 import com.enesselvi.GradeDto.DtoGradeResponse;
+import com.enesselvi.StudentException.CustomNotFoundException;
 import com.enesselvi.entites.Student;
 import com.enesselvi.entites.Grade;
 import com.enesselvi.repository.GradesRepository;
@@ -25,8 +26,6 @@ import com.enesselvi.services.IGradeService;
 @Service
 public class GradeService  implements IGradeService{
 	
-	
-	
 	@Autowired
 	StudentRepository studentRepository;
 	
@@ -34,12 +33,11 @@ public class GradeService  implements IGradeService{
 	GradesRepository gradesRepository ;
 
 	
-	
 	@Autowired
 	GradeCalculatorService gradeCalculatorService;
 	
 	@Override
-	public ResponseEntity<?> saveGrade(Integer number  , DtoGradeAdd dtoGradeAdd) {
+	public DtoGrade saveGrade(Integer number  , DtoGradeAdd dtoGradeAdd) {
 
 		Grade addGrade = new Grade();   //VERİTABANINA EKLENECEK NOTUN TUTULDUĞU DEĞİŞKEN
 		DtoGrade dtoGrade = new DtoGrade();  //NOTUN KULLANICIYA DÖNDÜRÜLECEĞİ DTOSU
@@ -55,16 +53,14 @@ public class GradeService  implements IGradeService{
 			 Grade savedGrade = gradesRepository.save(addGrade);
 			 BeanUtils.copyProperties(savedGrade, dtoGrade);
 
-			return ResponseEntity.ok(dtoGrade);
+			return dtoGrade;
 		}
 		
-		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadıı");
+		throw new CustomNotFoundException("Girilen Numara ile Öğrenci Bulunamadı");
 	}
 
-
-
 	@Override
-	public ResponseEntity<?> listAllGrades() {
+	public List<DtoGradeList> listAllGrades() {
 		
 		Student student = new Student();
 		List<DtoGradeList> dtoGradesList= new ArrayList<>();
@@ -81,9 +77,9 @@ public class GradeService  implements IGradeService{
 				
 				dtoGradesList.add(dtoGrade);
 			}
-			return ResponseEntity.ok(dtoGradesList);
+			return dtoGradesList;
 		}
-		return ResponseEntity.status(HttpStatus.CONFLICT).body("Not Listesi Boş.");
+		throw new CustomNotFoundException("Notlar Bulunamadı");
 	}
 
 	@Override
