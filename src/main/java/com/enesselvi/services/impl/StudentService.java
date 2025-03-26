@@ -1,17 +1,13 @@
 package com.enesselvi.services.impl;
 
 
-
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.http.HttpStatus;
-//import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.enesselvi.StudentDto.DtoStudent;
@@ -31,9 +27,6 @@ public class StudentService implements IStudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-
-	
-	//////////////Öğrenci Kayıt İşlemi/////////////////////
 	@Override
 	public DtoStudent saveStudent(DtoStudentSave dtoStudentSave){
 		
@@ -81,9 +74,7 @@ public class StudentService implements IStudentService {
 		
 		if (dtoStudentList.isEmpty()) {
 			throw new CustomNotFoundException("Liste Boşşşşş");
-			
 		}
-		
 		return   dtoStudentList;
 	}
 
@@ -97,11 +88,11 @@ public class StudentService implements IStudentService {
 			BeanUtils.copyProperties(optional.get(), dtoStudent);
 			return dtoStudent;
 		}
-		throw new CustomNotFoundException("Öğrenci Bulunamadı");
+		throw new CustomNotFoundException("Girilen ID de Öğrenci Bulunamadı");
 	}
 
 	@Override
-	public ResponseEntity<?> updateStudent(Integer number, DtoStudentUpdate dtoStudentUpdate) {
+	public DtoStudent updateStudent(Integer number, DtoStudentUpdate dtoStudentUpdate) {
 		
 		Student dbStudent = new Student();
 		DtoStudent dtoStudent = new DtoStudent();
@@ -110,26 +101,21 @@ public class StudentService implements IStudentService {
 		Optional<Student> optional = studentRepository.findOne(example);
 		if (optional.isPresent()) {
 			
-
 			dbStudent = optional.get();
-
-			System.out.println(dbStudent.getId());
 			dbStudent.setFirstName(dtoStudentUpdate.getFirstName());
 			dbStudent.setLastName(dtoStudentUpdate.getLastName());
 			dbStudent.setBirthOfDate(dtoStudentUpdate.getBirthOfDate());
 			
 		    Student updatedStudent = studentRepository.save(dbStudent);
- 
 			BeanUtils.copyProperties(updatedStudent, dtoStudent);
-			return ResponseEntity.ok(dtoStudent);
+			
+			return dtoStudent;
 		}
-	return	ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
-		
+	   throw new  CustomNotFoundException("Öğrenci BUlunamadı. Güncelleme İşleme Yapılamadı");
 	}
 
-	
 	@Override
-	public ResponseEntity<?> findStudentByNumber(Integer number) {
+	public DtoStudent findStudentByNumber(Integer number) {
 		
 		
 		Student findStudent = new Student();
@@ -144,8 +130,8 @@ public class StudentService implements IStudentService {
 			findStudent=optional.get();
 			BeanUtils.copyProperties(findStudent, dtoStudent);
 			
-			return ResponseEntity.ok(dtoStudent);
+			return dtoStudent;
 		}
-		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
+		   throw new  CustomNotFoundException("Girilen NUmarada ki Öğrenci Bulunamadı");
 	}
 }

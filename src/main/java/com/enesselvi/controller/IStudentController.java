@@ -21,9 +21,9 @@ public interface IStudentController {
 	
 	public DtoStudent getStudentById(Integer id);
 	
-	public ResponseEntity<?> updateStudent(Integer number , DtoStudentUpdate dtoStudentUpdate);
+	public DtoStudent updateStudent(Integer number , DtoStudentUpdate dtoStudentUpdate);
 	
-	public ResponseEntity<?>  findStudentByNumber(Integer number);
+	public DtoStudent findStudentByNumber(Integer number);
 
 
 	

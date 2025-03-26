@@ -67,7 +67,7 @@ public class StudentController implements IStudentController {
 
     @PutMapping("/update/{num}")
 	@Override
-	public ResponseEntity<?> updateStudent(@PathVariable(name = "num") Integer num,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
+	public DtoStudent updateStudent(@PathVariable(name = "num") Integer num,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
 
     	return studentService.updateStudent(num, dtoStudentUpdate); 
 	}
@@ -75,7 +75,7 @@ public class StudentController implements IStudentController {
 
     @GetMapping("/list/with-number/{stuNumber}")
 	@Override
-	public ResponseEntity<?>  findStudentByNumber(@PathVariable(name = "stuNumber")Integer number) {
+	public DtoStudent  findStudentByNumber(@PathVariable(name = "stuNumber")Integer number) {
     	
 		return studentService.findStudentByNumber(number);
 	}
