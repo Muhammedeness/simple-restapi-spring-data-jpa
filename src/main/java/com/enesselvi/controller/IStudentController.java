@@ -15,7 +15,7 @@ public interface IStudentController {
 	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave);
 	
 	
-	public ResponseEntity<?> getAllStudents();
+	public List<DtoStudent> getAllStudents();
 	
 	public ResponseEntity<String> deleteStudent(Integer id);
 	

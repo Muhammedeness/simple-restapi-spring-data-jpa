@@ -49,13 +49,11 @@ public class StudentController implements IStudentController {
 
 	@GetMapping("/list")
 	@Override
-	public ResponseEntity<?> getAllStudents() {
+	public List<DtoStudent> getAllStudents() {
 		
 		List<DtoStudent> dtoStudentList = studentService.getAllStudents();
-		if (dtoStudentList.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kayıtlı Öğrenci BUlunamadı");
-		}	
-	  return ResponseEntity.ok(dtoStudentList);
+
+	  return dtoStudentList;
 	}
 
 

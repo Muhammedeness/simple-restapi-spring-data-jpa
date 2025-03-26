@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.StudentDto.DtoStudentUpdate;
+import com.enesselvi.StudentException.CustomNotFoundException;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
@@ -70,15 +71,17 @@ public class StudentService implements IStudentService {
 		
 		List<Student> studentList = studentRepository.findAll();
 		
-		/*if (studentList.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Kayıtlı Öğrenci BUlunamadı");
-		}*/
-		
 		for (Student student : studentList) {
 			DtoStudent dtoStudent = new DtoStudent();
 			BeanUtils.copyProperties(student, dtoStudent);
 			dtoStudentList.add(dtoStudent);
 		}
+		
+		if (dtoStudentList.isEmpty()) {
+			throw new CustomNotFoundException("Liste Boşşşşş");
+			
+		}
+		
 		return   dtoStudentList;  //ResponseEntity.ok(dtoStudentList);
 	}
 
