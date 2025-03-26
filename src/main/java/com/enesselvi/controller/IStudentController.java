@@ -17,7 +17,7 @@ public interface IStudentController {
 	
 	public List<DtoStudent> getAllStudents();
 	
-	public ResponseEntity<String> deleteStudent(Integer id);
+	public String deleteStudent(Integer id);
 	
 	public ResponseEntity<?> getStudentById(Integer id);
 	

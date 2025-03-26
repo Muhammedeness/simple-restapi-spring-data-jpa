@@ -52,15 +52,15 @@ public class StudentService implements IStudentService {
 	
 	
 	@Override
-	public ResponseEntity<String> deleteStudent(Integer id){
+	public String deleteStudent(Integer id){
 	
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
 			studentRepository.deleteById(id);    
-			return ResponseEntity.status(HttpStatus.OK).body("Kullanıcı başarıyla silindi");
+			return "Kullanıcı başarıyla silindi";
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kullanıcı bulunamadı.");
+		throw new CustomNotFoundException("Kullanıcı Bulunamadı");
 	}
 
 	
@@ -82,7 +82,7 @@ public class StudentService implements IStudentService {
 			
 		}
 		
-		return   dtoStudentList;  //ResponseEntity.ok(dtoStudentList);
+		return   dtoStudentList;
 	}
 
 	

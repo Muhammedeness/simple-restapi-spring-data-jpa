@@ -42,7 +42,7 @@ public class StudentController implements IStudentController {
 	
 	@DeleteMapping("/delete/{id}")
 	@Override
-	public ResponseEntity<String> deleteStudent(@PathVariable(name = "id")Integer id) {
+	public String deleteStudent(@PathVariable(name = "id")Integer id) {
 		return studentService.deleteStudent(id);
 		
 	}
