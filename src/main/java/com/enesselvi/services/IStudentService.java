@@ -12,7 +12,7 @@ import com.enesselvi.entites.Student;
 
 public interface IStudentService {
 	
-	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave); //DtoStudent will returned ony name , lastname and number will returned
+	public DtoStudent saveStudent(DtoStudentSave dtoStudentSave); //DtoStudent will returned ony name , lastname and number will returned
 	
 	
 	public List<DtoStudent> getAllStudents();
@@ -20,7 +20,7 @@ public interface IStudentService {
 	
 	public String deleteStudent(Integer id);
 	
-	public ResponseEntity<?> getStudentById(Integer id);
+	public DtoStudent getStudentById(Integer id);
 	
 	public ResponseEntity<?> updateStudent(Integer number , DtoStudentUpdate dtoStudentUpdate);
 	

@@ -18,6 +18,7 @@ import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.StudentException.CustomNotFoundException;
+import com.enesselvi.StudentException.CustomUserInDatabaseException;
 import com.enesselvi.entites.Student;
 import com.enesselvi.repository.StudentRepository;
 import com.enesselvi.services.IStudentService;
@@ -34,7 +35,7 @@ public class StudentService implements IStudentService {
 	
 	//////////////Öğrenci Kayıt İşlemi/////////////////////
 	@Override
-	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave){
+	public DtoStudent saveStudent(DtoStudentSave dtoStudentSave){
 		
 		DtoStudent dtoStudent = new DtoStudent();
 		Student student = new Student();
@@ -45,9 +46,10 @@ public class StudentService implements IStudentService {
 		if (!optional.isPresent()) {
 			studentRepository.save(student);
 			BeanUtils.copyProperties(student, dtoStudent);
-			return ResponseEntity.ok(dtoStudent);
-		}  
-		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı zaten kayıtlı");
+			return dtoStudent;
+		} 
+		
+		throw new CustomUserInDatabaseException("Öğrenci Zaten Kayıtlı");
 	}    
 	
 	
@@ -87,15 +89,15 @@ public class StudentService implements IStudentService {
 
 	
 	@Override
-	public ResponseEntity<?> getStudentById(Integer id) {
+	public DtoStudent getStudentById(Integer id) {
 		DtoStudent dtoStudent = new DtoStudent();
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
 			
 			BeanUtils.copyProperties(optional.get(), dtoStudent);
-			return ResponseEntity.ok(dtoStudent);
+			return dtoStudent;
 		}
-		return ResponseEntity.status(HttpStatus.CONFLICT).body("Kullanıcı Bulunamadı");
+		throw new CustomNotFoundException("Öğrenci Bulunamadı");
 	}
 
 	@Override

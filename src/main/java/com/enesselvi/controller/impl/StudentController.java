@@ -33,7 +33,7 @@ public class StudentController implements IStudentController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public ResponseEntity<?> saveStudent(@RequestBody DtoStudentSave dtoStudentSave) {
+	public DtoStudent saveStudent(@RequestBody DtoStudentSave dtoStudentSave) {
 		
 		return studentService.saveStudent(dtoStudentSave);
 	}
@@ -59,7 +59,7 @@ public class StudentController implements IStudentController {
 
     @GetMapping("/list/{id}")
 	@Override
-	public ResponseEntity<?> getStudentById(@PathVariable(name = "id")Integer id) {
+	public DtoStudent getStudentById(@PathVariable(name = "id")Integer id) {
     	
 		return studentService.getStudentById(id);
 	}

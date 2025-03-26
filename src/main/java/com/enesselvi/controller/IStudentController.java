@@ -12,14 +12,14 @@ import com.enesselvi.entites.Student;
 
 public interface IStudentController {
 
-	public ResponseEntity<?> saveStudent(DtoStudentSave dtoStudentSave);
+	public DtoStudent saveStudent(DtoStudentSave dtoStudentSave);
 	
 	
 	public List<DtoStudent> getAllStudents();
 	
 	public String deleteStudent(Integer id);
 	
-	public ResponseEntity<?> getStudentById(Integer id);
+	public DtoStudent getStudentById(Integer id);
 	
 	public ResponseEntity<?> updateStudent(Integer number , DtoStudentUpdate dtoStudentUpdate);
 	
