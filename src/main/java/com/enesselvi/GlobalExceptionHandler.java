@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.enesselvi.Exception.CustomAlreadyInDatabaseException;
 import com.enesselvi.Exception.CustomNotFoundException;
+import com.enesselvi.Exception.CustomNullException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,6 +29,14 @@ public class GlobalExceptionHandler {
 	public String handleUserInDatabaseException(CustomAlreadyInDatabaseException e) {
 		return e.getMessage();
 	}
+	
+	@ExceptionHandler(CustomNullException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleCustomNullException(CustomNullException e) {
+		return e.getMessage();
+	}
+	
 	
 	
 }

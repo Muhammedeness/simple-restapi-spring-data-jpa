@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.enesselvi.Exception.CustomAlreadyInDatabaseException;
 import com.enesselvi.Exception.CustomNotFoundException;
+import com.enesselvi.Exception.CustomNullException;
 import com.enesselvi.StudentDto.DtoStudent;
 import com.enesselvi.StudentDto.DtoStudentSave;
 import com.enesselvi.StudentDto.DtoStudentUpdate;
@@ -33,15 +34,20 @@ public class StudentService implements IStudentService {
 		DtoStudent dtoStudent = new DtoStudent();
 		Student student = new Student();
 		BeanUtils.copyProperties(dtoStudentSave, student);
-        //aynı numaralı öğrenci kontrol ediyor varsa eklemiyor
+		
+		//EĞER NULL VERİ GÖNDERİLİRSE HATA FIRLAT
+		if (student.getFirstName()==null ||  student.getLastName()==null || student.getBirthOfDate()==null || student.getStuNumber()==null) {
+			throw new CustomNullException("Lütfen Boş yerleri doldurunuz");
+		}
+
 		Example<Student> example = Example.of(student);
 		Optional<Student> optional = studentRepository.findOne(example);
+		
 		if (!optional.isPresent()) {
 			studentRepository.save(student);
 			BeanUtils.copyProperties(student, dtoStudent);
 			return dtoStudent;
 		} 
-		
 		throw new CustomAlreadyInDatabaseException("Öğrenci Zaten Kayıtlı");
 	}    
 	
@@ -116,7 +122,6 @@ public class StudentService implements IStudentService {
 
 	@Override
 	public DtoStudent findStudentByNumber(Integer number) {
-		
 		
 		Student findStudent = new Student();
 		findStudent.setStuNumber(number);
