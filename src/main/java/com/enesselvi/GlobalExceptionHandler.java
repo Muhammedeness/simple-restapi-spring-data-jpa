@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.enesselvi.Exception.CustomAlreadyInDatabaseException;
+import com.enesselvi.Exception.CustomErrorException;
 import com.enesselvi.Exception.CustomNotFoundException;
 import com.enesselvi.Exception.CustomNullException;
 
@@ -37,6 +38,12 @@ public class GlobalExceptionHandler {
 		return e.getMessage();
 	}
 	
-	
+	@ExceptionHandler(CustomErrorException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public String handleCustomErrorException(CustomErrorException e) {
+		return e.getMessage();
+
+	}
 	
 }

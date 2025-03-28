@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.enesselvi.Exception.CustomErrorException;
 import com.enesselvi.Exception.CustomNotFoundException;
 import com.enesselvi.GradeDto.DtoGrade;
 import com.enesselvi.GradeDto.DtoGradeAdd;
@@ -45,6 +46,11 @@ public class GradeService  implements IGradeService{
 		student.setStuNumber(number);
 		Example<Student> example = Example.of(student);
 		Optional<Student> optional = studentRepository.findOne(example);  //VERİLEN ÖĞRENCİYİ ARAYAN KOD. ARKADA WHERE Lİ SQL SORGUSU ÇALIŞIR
+		
+		if (!optional.isPresent()) {
+			throw new CustomNotFoundException("Girilen Numara ile Öğrenci Bulunamadı");
+		}
+		
 		if (optional.isPresent()) {
 			 student = optional.get(); //BULUNAN ÖĞRENCİYİ GETTER İLE ATA
 			 BeanUtils.copyProperties(dtoGradeAdd, addGrade);
@@ -56,7 +62,7 @@ public class GradeService  implements IGradeService{
 			return dtoGrade;
 		}
 		
-		throw new CustomNotFoundException("Girilen Numara ile Öğrenci Bulunamadı");
+		throw new CustomErrorException("Hatalı Durum");
 	}
 
 	@Override
