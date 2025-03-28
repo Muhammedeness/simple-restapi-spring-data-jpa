@@ -1,6 +1,6 @@
 package com.enesselvi.spring_data_jpa;
 
-import com.enesselvi.Exception.CustomAlreadyInDatabaseException;
+import com.enesselvi.Exception.CustomAlreadyInDatabaseException; 
 import com.enesselvi.Exception.CustomNotFoundException;
 import com.enesselvi.Exception.CustomNullException;
 import com.enesselvi.StudentDto.DtoStudent;
@@ -16,8 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +166,7 @@ class StudentServiceTest {
     	int id = 1;
         when(studentRepository.findById(id)).thenReturn(Optional.of(student));
 
-        // Act
+        
         DtoStudent result = studentService.getStudentById(id);
 
         
