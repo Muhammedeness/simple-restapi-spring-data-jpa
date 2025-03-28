@@ -1,14 +1,12 @@
 package com.enesselvi.services.impl;
 
-import java.util.ArrayList;  
+import java.util.ArrayList;   
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.enesselvi.Exception.CustomErrorException;
@@ -46,7 +44,7 @@ public class GradeService  implements IGradeService{
 		student.setStuNumber(number);
 		Example<Student> example = Example.of(student);
 		Optional<Student> optional = studentRepository.findOne(example);  //VERİLEN ÖĞRENCİYİ ARAYAN KOD. ARKADA WHERE Lİ SQL SORGUSU ÇALIŞIR
-		
+
 		if (!optional.isPresent()) {
 			throw new CustomNotFoundException("Girilen Numara ile Öğrenci Bulunamadı");
 		}
