@@ -45,6 +45,8 @@ public class GradeService  implements IGradeService{
 		Example<Student> example = Example.of(student);
 		Optional<Student> optional = studentRepository.findOne(example);  //VERİLEN ÖĞRENCİYİ ARAYAN KOD. ARKADA WHERE Lİ SQL SORGUSU ÇALIŞIR
 
+		
+		
 		if (!optional.isPresent()) {
 			throw new CustomNotFoundException("Girilen Numara ile Öğrenci Bulunamadı");
 		}
