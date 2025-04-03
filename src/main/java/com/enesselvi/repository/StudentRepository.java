@@ -15,5 +15,8 @@ import jakarta.transaction.Transactional;
 public interface StudentRepository  extends JpaRepository<Student, Integer>{
 	
 
+	Student findByStuNumber(Integer number);
+	Boolean existsByStuNumber(Integer number);
+	//Student deleteByStuNumber(Integer number);
 	
 }

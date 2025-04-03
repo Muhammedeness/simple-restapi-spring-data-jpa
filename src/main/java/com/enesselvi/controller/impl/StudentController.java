@@ -18,6 +18,8 @@ import com.enesselvi.StudentDto.DtoStudentUpdate;
 import com.enesselvi.controller.IStudentController;
 import com.enesselvi.services.IStudentService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/rest/api/student")
@@ -30,7 +32,7 @@ public class StudentController implements IStudentController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public DtoStudent saveStudent(@RequestBody DtoStudentSave dtoStudentSave) {
+	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentSave dtoStudentSave) {
 		
 		return studentService.saveStudent(dtoStudentSave);
 	}

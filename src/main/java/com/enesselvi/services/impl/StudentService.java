@@ -37,11 +37,8 @@ public class StudentService implements IStudentService {
 		if (student.getFirstName()==null ||  student.getLastName()==null || student.getBirthOfDate()==null || student.getStuNumber()==null) {
 			throw new CustomNullException("Lütfen Boş yerleri doldurunuz");
 		}
-
-		Example<Student> example = Example.of(student);
-		Optional<Student> optional = studentRepository.findOne(example);
 		
-		if (!optional.isPresent()) {
+		if (!studentRepository.existsByStuNumber(student.getStuNumber())) {
 			studentRepository.save(student);
 			BeanUtils.copyProperties(student, dtoStudent);
 			return dtoStudent;
@@ -128,20 +125,16 @@ public class StudentService implements IStudentService {
 	
 	@Override
 	public DtoStudent findStudentByNumber(Integer number) {
+
+		Student student = new Student();
+		student = studentRepository.findByStuNumber(number);
 		
-		Student findStudent = new Student();
-		findStudent.setStuNumber(number);
-		
-		Example<Student> example = Example.of(findStudent);
-		Optional<Student> optional = studentRepository.findOne(example);
-		if (optional.isPresent()) {
+		if (student!=null) {
 			
-			DtoStudent dtoStudent = new DtoStudent();
-			
-			findStudent=optional.get();
-			BeanUtils.copyProperties(findStudent, dtoStudent);
-			
-			return dtoStudent;
+		DtoStudent dtoStudent = new DtoStudent();
+		BeanUtils.copyProperties(student, dtoStudent);
+	
+		return dtoStudent;
 		}
 		   throw new  CustomNotFoundException("Girilen NUmarada ki Öğrenci Bulunamadı");
 	}
