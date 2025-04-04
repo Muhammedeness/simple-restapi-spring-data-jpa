@@ -40,11 +40,12 @@ class StudentServiceTest {
 
     @BeforeEach
     void setUp() {
+    	
         dtoStudentSave = new DtoStudentSave();
         dtoStudentSave.setFirstName("John");
         dtoStudentSave.setLastName("Doe");
         dtoStudentSave.setStuNumber(123);
-        dtoStudentSave.setBirthOfDate("2000-01-01");
+        //dtoStudentSave.setBirthOfDate(2000-01-01);
 
         dtoStudent = new DtoStudent();
         dtoStudent.setFirstName("John");
@@ -55,7 +56,7 @@ class StudentServiceTest {
         student.setFirstName("John");
         student.setLastName("Doe");
         student.setStuNumber(123);
-        student.setBirthOfDate("2000-01-01");
+       // student.setBirthOfDate("2000-01-01");
     }
 
     @Test
@@ -196,13 +197,13 @@ class StudentServiceTest {
         DtoStudentUpdate dtoStudentUpdate = new DtoStudentUpdate();
         dtoStudentUpdate.setFirstName("Jane");
         dtoStudentUpdate.setLastName("Doe");
-        dtoStudentUpdate.setBirthOfDate("2001-01-01");
+       // dtoStudentUpdate.setBirthOfDate("2001-01-01");
 
         Student existingStudent = new Student();
         existingStudent.setStuNumber(number);
         existingStudent.setFirstName("John"); // Önemli: Mevcut öğrenci bilgilerini ayarlıyoruz
         existingStudent.setLastName("Doe");
-        existingStudent.setBirthOfDate("2000-01-01");
+        //existingStudent.setBirthOfDate("2000-01-01");
 
         when(studentRepository.findOne(any())).thenReturn(Optional.of(existingStudent));
         when(studentRepository.save(any())).thenReturn(existingStudent);

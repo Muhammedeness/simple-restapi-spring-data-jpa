@@ -15,7 +15,10 @@ public class DtoStudent {
 	
 	
 	private String firstName;
+	
 	private String lastName;
+	
 	private Integer stuNumber;
+	
 	
 }

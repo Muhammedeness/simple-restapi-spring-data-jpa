@@ -1,5 +1,6 @@
 package com.enesselvi.entites;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ import lombok.ToString;
 @Table(name = "student") //tablomun adı
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Student {
 	
@@ -42,7 +43,7 @@ public class Student {
 	
 	
 	@Column(name = "birth_of_date" , nullable = true)
-	private String birthOfDate;
+	private Date birthOfDate;
 	
 	@Column(name="number" , nullable = false , unique = true)
 	private Integer stuNumber;
