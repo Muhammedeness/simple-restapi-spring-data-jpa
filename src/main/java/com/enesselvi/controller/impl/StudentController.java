@@ -66,7 +66,7 @@ public class StudentController implements IStudentController {
 
     @PutMapping("/update/{num}")
 	@Override
-	public DtoStudent updateStudent(@PathVariable(name = "num") Integer num,  @RequestBody  DtoStudentUpdate dtoStudentUpdate) {
+	public DtoStudent updateStudent(@PathVariable(name = "num") Integer num,  @RequestBody @Valid DtoStudentUpdate dtoStudentUpdate) {
 
     	return studentService.updateStudent(num, dtoStudentUpdate); 
 	}
