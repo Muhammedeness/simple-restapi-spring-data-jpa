@@ -81,7 +81,7 @@ class StudentServiceTest {
     void saveStudent_shouldThrowExceptionIfStudentAlreadyExists() {
         // existsByStuNumber metodunun true döndürmesini sağlayarak
         // öğrencinin zaten var olduğunu simüle ediyoruz
-        when(studentRepository.existsByStuNumber(anyInt())).thenReturn(true);
+        when(studentRepository.existsByStuNumber(anyInt())) .thenReturn(true);
 
         assertThrows(CustomAlreadyInDatabaseException.class, () -> {
             studentService.saveStudent(dtoStudentSave);
