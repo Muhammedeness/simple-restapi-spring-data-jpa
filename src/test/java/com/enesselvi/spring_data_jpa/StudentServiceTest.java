@@ -45,24 +45,25 @@ class StudentServiceTest {
         dtoStudentSave.setFirstName("John");
         dtoStudentSave.setLastName("Doe");
         dtoStudentSave.setStuNumber(123);
-        //dtoStudentSave.setBirthOfDate(2000-01-01);
+        dtoStudentSave.setBirthOfDate(java.sql.Date.valueOf("2000-01-01")); // java.sql.Date kullanıyoruz
 
         dtoStudent = new DtoStudent();
         dtoStudent.setFirstName("John");
         dtoStudent.setLastName("Doe");
         dtoStudent.setStuNumber(123);
 
+
         student = new Student();
         student.setFirstName("John");
         student.setLastName("Doe");
         student.setStuNumber(123);
-       // student.setBirthOfDate("2000-01-01");
+        student.setBirthOfDate(java.sql.Date.valueOf("2000-01-01")); // java.sql.Date kullanıyoruz
     }
 
     @Test
     void saveStudent_shouldSaveStudentAndReturnDto() {
         
-    	when(studentRepository.findOne(any())).thenReturn(Optional.empty()); // Öğrencinin veritabanında olmadığını simüle ediyoruz
+    	//when(studentRepository.findOne(any())).thenReturn(Optional.empty()); // Öğrencinin veritabanında olmadığını simüle ediyoruz
         when(studentRepository.save(any())).thenReturn(student); // Kaydedilen öğrenciyi simüle ediyoruz
 
         
@@ -78,15 +79,16 @@ class StudentServiceTest {
 
     @Test
     void saveStudent_shouldThrowExceptionIfStudentAlreadyExists() {
-
-        when(studentRepository.findOne(any())).thenReturn(Optional.of(student)); // Öğrencinin veritabanında olduğunu simüle ediyoruz
-
+        // existsByStuNumber metodunun true döndürmesini sağlayarak
+        // öğrencinin zaten var olduğunu simüle ediyoruz
+        when(studentRepository.existsByStuNumber(anyInt())).thenReturn(true);
 
         assertThrows(CustomAlreadyInDatabaseException.class, () -> {
             studentService.saveStudent(dtoStudentSave);
         });
 
         verify(studentRepository, times(0)).save(any()); // Save metodunun çağrılmadığını kontrol ediyoruz
+        verify(studentRepository, times(1)).existsByStuNumber(dtoStudentSave.getStuNumber()); // existsByStuNumber metodunun çağrıldığını kontrol ediyoruz
     }
 
     @Test
@@ -236,29 +238,29 @@ class StudentServiceTest {
 
     @Test
     void findStudentByNumber_shouldReturnDtoStudentIfFound() {
-        
-    	int number = 123;
-        when(studentRepository.findOne(any())).thenReturn(Optional.of(student));
 
-        
+        int number = 123;
+        when(studentRepository.findByStuNumber(number)).thenReturn(student); // findByStuNumber metodunu mock'luyoruz
+
         DtoStudent result = studentService.findStudentByNumber(number);
 
-        
         assertNotNull(result);
         assertEquals(dtoStudent.getFirstName(), result.getFirstName());
         assertEquals(dtoStudent.getLastName(), result.getLastName());
         assertEquals(dtoStudent.getStuNumber(), result.getStuNumber());
+        verify(studentRepository, times(1)).findByStuNumber(number); // findByStuNumber metodunun doğru numara ile çağrıldığını doğruluyoruz
     }
 
     @Test
     void findStudentByNumber_shouldThrowExceptionIfNotFound() {
-        
-    	int number = 123;
-        when(studentRepository.findOne(any())).thenReturn(Optional.empty());
+        int number = 999; // Var olmayan bir öğrenci numarası
 
+        when(studentRepository.findByStuNumber(number)).thenReturn(null); // Öğrencinin bulunamadığını simüle ediyoruz
 
         assertThrows(CustomNotFoundException.class, () -> {
             studentService.findStudentByNumber(number);
         });
+
+        verify(studentRepository, times(1)).findByStuNumber(number); // findByStuNumber metodunun doğru numara ile çağrıldığını doğruluyoruz
     }
 }
